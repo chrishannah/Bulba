@@ -1,0 +1,14 @@
+html {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+}
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #111111;
+        color: #cccccc;
+    }
+}

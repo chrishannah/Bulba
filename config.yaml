@@ -1,0 +1,6 @@
+site:
+  name: Blog Title
+  description: A collection of posts
+paths: 
+  assets:
+    assets

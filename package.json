@@ -1,19 +1,20 @@
 {
   "name": "bulba",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "static blog generator",
   "main": "bin/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "scripts": {},
+  "author": "Chris Hannah",
+  "homepage": "https://github.com/chrishannah/bulba",
   "license": "GPL-3.0-or-later",
   "bin": {
     "static": "index.js"
   },
   "dependencies": {
+    "fs-extra": "^10.0.0",
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.7",
+    "js-beautify": "^1.14.0",
     "marked": "^3.0.7",
     "matter": "^0.2.0"
   }

@@ -1,10 +1,8 @@
 ---
 title: Example post
-slug: exp
+slug: example
 date: 2010-09-15 14:40:45
 ---
-
-# Example
 
 ## h2 Heading
 ### h3 Heading
@@ -12,8 +10,6 @@ date: 2010-09-15 14:40:45
 ##### h5 Heading
 ###### h6 Heading
 
-
-## Horizontal Rules
 
 ___
 
