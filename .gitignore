@@ -1,7 +1,3 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/node,macos,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,macos,visualstudiocode
-
 ### macOS ###
 # General
 .DS_Store
@@ -171,4 +167,9 @@ dist
 .history
 .ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/node,macos,visualstudiocode
+### Bulba ###
+# Outputted files
+out/
+
+# Content
+content/posts/
