@@ -1,0 +1,6 @@
+site:
+  name: The name of your blog
+  description: A description
+paths: 
+  assets:
+    assets

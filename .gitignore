@@ -172,4 +172,10 @@ dist
 out/
 
 # Content
-content/posts/
+content/
+
+# Config
+config.yaml
+
+# Assets
+assets/
