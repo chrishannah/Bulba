@@ -8,7 +8,7 @@
   "homepage": "https://github.com/chrishannah/bulba",
   "license": "GPL-3.0-or-later",
   "bin": {
-    "static": "index.js"
+    "bulba": "index.js"
   },
   "dependencies": {
     "fs-extra": "^10.0.0",

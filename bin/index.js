@@ -31,6 +31,7 @@ const posts = filenames.map(filename => {
 })
 
 // Render the posts through the template engine and generate static html files
+console.log('Generating HTML files:');
 var postTemplateFilename = 'templates/post.hbs';
 var postTemplateFile = fs.readFileSync(postTemplateFilename, 'utf8');
 var configFilename = "config.yaml";
@@ -43,17 +44,23 @@ posts.forEach(post => {
         config
     }
     var postPage = beautify(postTemplate(content), beautify);
-    fs.writeFileSync('out/' + post.meta.slug + '.html', postPage);
+    var filename = 'out/' + post.meta.slug + '.html';
+    fs.writeFileSync(filename, postPage);
+    console.log('- ' + post.meta.title + ' (' + filename + ')');
 });
 
 // Export all assets to output directory
+console.log("Exporting asset files")
 const inAssetsDir = 'assets/';
 const outAssetsDir = 'out/assets/';
 const assetFilenames = fs.readdirSync(inAssetsDir);
 assetFilenames.forEach(filename => {
-    var file = fs.readFileSync(inAssetsDir + filename, 'utf8');
+    var inFilename = inAssetsDir + filename;
+    var file = fs.readFileSync(inFilename, 'utf8');
 
     if (path.extname(filename) == ".css") {
-        fs.writeFileSync(outAssetsDir + 'css/' + filename, file);
+        var outFilename = outAssetsDir + 'css/' + filename;
+        fs.writeFileSync(outFilename, file);
+        console.log('- ' + inFilename + ' => ' + outFilename);
     }
 })
