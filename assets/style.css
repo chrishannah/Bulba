@@ -1,0 +1,279 @@
+/* Colours */
+
+:root {
+    --bg-dark: #111111;
+    --bg-light: #FFFFFF;
+    --text-dark: #CCCCCC;
+    --text-light: #333333;
+    --accent: rgb(11, 156, 135);
+  }
+  
+  .element {
+    background: var(--color-black);
+  }
+
+/* General */
+
+html {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: var(--bg-dark);
+        color: var(--text-dark);
+    }
+}
+
+#box {
+    margin: 16px 0 80px 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#pageHeader {
+    font-size: 1.8em;
+    font-weight: 600;
+    text-align: left;
+    float: none;
+}
+
+#header {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#headerOuter {
+    margin: 1em 0 4em 0;
+    height: 2.4em;
+    padding-bottom: 1em;
+    border-bottom: 2px solid var(--accent)
+}
+
+#header #title {
+    font-size: 1.8em;
+    font-weight: 600;
+    text-align: left;
+    float: left;
+}
+
+#header #title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#header #menu {
+    font-size: 1.2em;
+    text-align: left;
+    float: right;
+}
+
+#menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#menu ul li {
+    margin: 0;
+    display: inline;
+    padding: 4px;
+}
+
+/* Blocks */
+
+hr {
+    color: var( --accent);
+    height: 0;
+    border: none;
+    border-bottom: 1px solid var( --accent);
+    margin: 18px auto
+}
+
+
+/* Text */
+
+h1 {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 4px auto;
+}
+
+h2, h3 {
+    font-weight: 600;
+}
+
+h4, h5, h6 {
+    font-weight: 400;
+}
+
+
+h1 a, h1 a:link, h1 a:active, h1 a:focus, h1 a:hover {
+    text-decoration: none;
+    border: none;
+}
+
+#linktitle a {
+    border-bottom: 2px solid var( --accent);
+}
+
+/* Fonts */
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Montserrat", system-ui,  "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+}
+
+/* Article */
+
+article {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+blockquote {
+    border-left: 3px solid var( --accent);
+    margin-left: 16px;
+    margin-right: 16px;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #444;
+    background-color: #fafafa;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-radius:4px;
+}
+
+blockquote > blockquote {
+    background-color: #f5f5f5;
+}
+
+blockquote cite {
+    font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+    blockquote {
+        color: #bbb;
+        background-color: #1f1f1f;
+    }
+    blockquote > blockquote {
+        background-color: #222222;
+    }
+}
+
+article #meta {
+    font-size: 13px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+}
+
+article #meta a,
+article #meta a:active,
+article #meta a:hover,
+article #meta a:link,
+article #meta a:visited {
+    text-decoration: none;
+    border-bottom: none;
+}
+
+article footer {
+    margin: 32px auto;
+    clear: both;
+}
+
+/* Links */
+
+a:link,
+a:active,
+a:hover,
+a:visited {
+    color: var( --accent);
+    text-decoration: underline;
+    text-decoration-color: var( --accent);
+}
+
+a:hover {
+    color: var( --accent);
+}
+
+img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Table */
+
+table {
+    border: 1px solid var( --accent);
+    border-radius: 4px;
+    margin: 0;
+    padding: 0;
+}
+
+th {
+    padding: 4px;
+    background-color: var( --accent);
+    color: white;
+    margin: 0;
+    text-align: left;
+}
+
+tr {
+    padding: 0;
+    background-color: #EEE;
+    margin: 0;
+    text-align: left;
+}
+
+td {
+    padding: 4px;
+}
+
+tr:nth-child(even) {
+    background-color: #DDD;
+}
+
+@media (prefers-color-scheme: dark) {
+    tr {
+        background-color: #111;
+    }
+    tr:nth-child(even) {
+        background-color: #222;
+    }
+}
+
+/* Code */
+
+pre {
+    font-size: 16px;
+    border-radius: 8px;
+    white-space: pre;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+}
+
+code {
+    font-size: 0.9em;
+    color: #111111;
+}
+
+@media (prefers-color-scheme: dark) {
+    code {
+        color: #eeeeee;
+
+    }
+}

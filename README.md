@@ -17,9 +17,11 @@ Bulba has a very minimal directory structure:
 
 ```
 .
-├── content/
-│   └── posts                posts saved as .md files
-└── assets                   asset files such as css stylesheets
+└── blog/
+    ├── content/
+    │   └── posts/
+    │       └── example.md
+    └── config.yaml
 ```
 
 ### Post format
@@ -42,7 +44,7 @@ The `excerpt` is optional.
 ### Output directory
 
 - Posts will be exported to the base of the `out` directory as `.html` files.
-- Assets will be exported into the assets directory, inside subdirectories noting their type.
+- Required assets will be exported into the assets directory, inside subdirectories noting their type.
 - An archive page will be generated with contains a list of all blog posts.
 
 Example:

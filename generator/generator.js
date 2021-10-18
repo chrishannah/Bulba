@@ -10,6 +10,7 @@ const path = require('path');
 const fsExtra = require('fs-extra')
 const moment = require("moment");
 const { readProjectFile } = require('../tools/files')
+const { readProjectDir } = require('../tools/files')
 
 function generateBlog() {
     configureHandlebars()
@@ -19,8 +20,10 @@ function generateBlog() {
 }
 
 function configureHandlebars() {
+
     // Partials
-    handlebars.registerPartial('default', '{{default}}');
+    var headerFile = readProjectFile('templates/header.hbs');
+    handlebars.registerPartial('header', headerFile);
 
     // Helpers
     handlebars.registerHelper('dateFormat', function (date, options) {
@@ -72,7 +75,7 @@ function generatePosts() {
             config
         }
         var postContent = postTemplate(content);
-        var title = post.title + ' | ' + config.site.name;
+        var title = post.meta.title + ' | ' + config.site.name;
         var page = defaultTemplate({ content: postContent, title: title, config: config });
         var beautified = beautify(page);
 
@@ -111,10 +114,11 @@ function exportAssets() {
     console.log("Exporting asset files")
     const inAssetsDir = 'assets/';
     const outAssetsDir = 'out/assets/';
-    const assetFilenames = fs.readdirSync(inAssetsDir);
+    const assetFilenames = readProjectDir(inAssetsDir);
     assetFilenames.forEach(filename => {
         var inFilename = inAssetsDir + filename;
-        var file = fs.readFileSync(inFilename, 'utf8');
+        console.log(inFilename);
+        var file = readProjectFile(inFilename);
 
         if (path.extname(filename) == ".css") {
             var outFilename = outAssetsDir + 'css/' + filename;
