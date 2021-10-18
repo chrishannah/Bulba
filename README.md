@@ -31,12 +31,19 @@ Posts should be saved as `.md` files, with the following format:
 title: Example post
 slug: example
 date: 2010-09-15 14:40:45
+excerpt: Just an example blog post.
 ---
 
 Content
 ```
 
-These will be exported to the base of the `out` directory as `.html` files. Assets are also organised by their types. 
+The `excerpt` is optional.
+
+### Output directory
+
+- Posts will be exported to the base of the `out` directory as `.html` files.
+- Assets will be exported into the assets directory, inside subdirectories noting their type.
+- An archive page will be generated with contains a list of all blog posts.
 
 Example:
 
@@ -46,5 +53,6 @@ Example:
     ├── assets/
     │   └── css/
     │       └── style.css
+    ├── archive.html 
     └── blog-post.html
 ```

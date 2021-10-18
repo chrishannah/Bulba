@@ -10,5 +10,9 @@
             <h1>{{this.post.meta.title}}</h1>
         </a>
     </header>
+
+    {{#if this.post.meta.excerpt}}
+    <p>{{{this.post.meta.excerpt}}}</p>
+    {{/if}}
 </article>
 {{/each}}
