@@ -6,6 +6,7 @@
   "scripts": {},
   "author": "Chris Hannah",
   "homepage": "https://github.com/chrishannah/bulba",
+  "repository": "https://github.com/chrishannah/bulba",
   "license": "GPL-3.0-or-later",
   "bin": {
     "bulba": "bin/index.js"
@@ -17,6 +18,7 @@
     "js-beautify": "^1.14.0",
     "marked": "^3.0.7",
     "matter": "^0.2.0",
+    "moment": "^2.29.1",
     "yargs": "^17.2.1"
   }
 }

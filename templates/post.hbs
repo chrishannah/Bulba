@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html>
+<article>
+    <header>
+        <span id="meta">{{dateFormat post.meta.date format='Do MMMM YYYY'}}</span>
+        <h1>{{post.meta.title}}</h1>
+    </header>
 
-<head>
-    <title>{{post.meta.title}} | {{config.site.name}}</title>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="{{config.paths.assets}}/css/style.css">
-</head>
-
-<body>
-    <h1>{{post.meta.title}}</h1>
-    <hr />
     {{{post.content}}}
-</body>
-
-</html>
+</article>

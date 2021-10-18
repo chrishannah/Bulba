@@ -8,12 +8,25 @@ const beautify = require('js-beautify').html
 const yaml = require('js-yaml')
 const path = require('path');
 const fsExtra = require('fs-extra')
+const moment = require("moment");
 const { readProjectFile } = require('../tools/files')
 
 function generateBlog() {
+    configureHandlebars()
     rebuildOutputDir();
     generatePosts();
     exportAssets();
+}
+
+function configureHandlebars() {
+    // Partials
+    handlebars.registerPartial('default', '{{default}}');
+
+    // Helpers
+    handlebars.registerHelper('dateFormat', function (date, options) {
+        const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
+        return moment(date).format(formatToUse);
+    });
 }
 
 function rebuildOutputDir() {
@@ -46,18 +59,25 @@ function generatePosts() {
     console.log('Generating HTML files:');
     var postTemplateFilename = 'templates/post.hbs';
     var postTemplateFile = readProjectFile(postTemplateFilename);
+    var defaultTemplateFilename = 'templates/default.hbs';
+    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var configFilename = "config.yaml";
     var configFile = fs.readFileSync(configFilename, 'utf8');
     var config = yaml.load(configFile);
     posts.forEach(post => {
         var postTemplate = handlebars.compile(postTemplateFile);
+        var defaultTemplate = handlebars.compile(defaultTemplateFile);
         var content = {
             post,
             config
         }
-        var postPage = beautify(postTemplate(content), beautify);
+        var postContent = postTemplate(content);
+        var title = post.meta.title + " | " + config.site.name;
+        var page = defaultTemplate({ content: postContent, title: title, config: config });
+        var beautified = beautify(page);
+
         var filename = 'out/' + post.meta.slug + '.html';
-        fs.writeFileSync(filename, postPage);
+        fs.writeFileSync(filename, beautified);
         console.log('- ' + post.meta.title + ' (' + filename + ')');
     });
 }
