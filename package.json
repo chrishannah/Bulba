@@ -1,0 +1,20 @@
+{
+  "name": "bulba",
+  "version": "1.0.0",
+  "description": "static blog generator",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bin": {
+    "static": "index.js"
+  },
+  "dependencies": {
+    "glob": "^7.2.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^3.0.7",
+    "matter": "^0.2.0"
+  }
+}
