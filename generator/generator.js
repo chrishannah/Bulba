@@ -57,10 +57,10 @@ function generatePosts() {
 
     // Render the posts through the template engine and generate static html files
     console.log('Generating HTML files:');
-    var postTemplateFilename = 'templates/post.hbs';
-    var postTemplateFile = readProjectFile(postTemplateFilename);
     var defaultTemplateFilename = 'templates/default.hbs';
     var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
+    var postTemplateFilename = 'templates/post.hbs';
+    var postTemplateFile = readProjectFile(postTemplateFilename);
     var configFilename = "config.yaml";
     var configFile = fs.readFileSync(configFilename, 'utf8');
     var config = yaml.load(configFile);
@@ -72,7 +72,7 @@ function generatePosts() {
             config
         }
         var postContent = postTemplate(content);
-        var title = post.meta.title + " | " + config.site.name;
+        var title = post.title + ' | ' + config.site.name;
         var page = defaultTemplate({ content: postContent, title: title, config: config });
         var beautified = beautify(page);
 
@@ -80,6 +80,30 @@ function generatePosts() {
         fs.writeFileSync(filename, beautified);
         console.log('- ' + post.meta.title + ' (' + filename + ')');
     });
+
+    // Generate archive page
+    var archiveTemplateFilename = 'templates/archive.hbs';
+    var archiveTemplateFile = readProjectFile(archiveTemplateFilename);
+    var archiveTemplate = handlebars.compile(archiveTemplateFile);
+    var defaultTemplate = handlebars.compile(defaultTemplateFile);
+
+    var content = posts.map(post => {
+        var path = post.meta.slug + '.html';
+
+        return {
+            post,
+            path
+        }
+    });
+
+    var archiveContent = archiveTemplate({ posts: content });
+    var title = 'Archive | ' + config.site.name;
+    var page = defaultTemplate({ content: archiveContent, title: title, config: config });
+    var beautified = beautify(page);
+
+    var filename = 'out/archive.html';
+    fs.writeFileSync(filename, beautified);
+    console.log('- Archive (' + filename + ')');
 }
 
 function exportAssets() {

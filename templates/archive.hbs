@@ -1,0 +1,14 @@
+<div id="header">
+    Archive
+</div>
+
+{{#each posts}}
+<article>
+    <header>
+        <span id="meta">{{dateFormat this.post.meta.date format='Do MMMM YYYY'}}</span>
+        <a href="">
+            <h1>{{this.post.meta.title}}</h1>
+        </a>
+    </header>
+</article>
+{{/each}}
