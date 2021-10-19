@@ -333,8 +333,7 @@ code {
 }
 
 #footerOuter {
-    margin: 1em 0 4em 0;
-    padding-bottom: 1em;
+    margin: 1em 0 1em 0;
     border-top: 1px solid var(--border-light);
 }
 
