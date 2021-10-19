@@ -25,6 +25,8 @@ function configureHandlebars() {
     handlebars.registerPartial('header', headerFile);
     var paginationFile = readProjectFile('templates/pagination.hbs');
     handlebars.registerPartial('pagination', paginationFile);
+    var footerFile = readProjectFile('templates/footer.hbs');
+    handlebars.registerPartial('footer', footerFile);
 
     // Helpers
     handlebars.registerHelper('dateFormat', function (date, options) {
