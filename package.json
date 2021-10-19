@@ -1,5 +1,5 @@
 {
-  "name": "bulba",
+  "name": "@chrishannah/bulba",
   "version": "0.0.1",
   "description": "static blog generator",
   "main": "bin/index.js",
