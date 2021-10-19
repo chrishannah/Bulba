@@ -12,6 +12,7 @@
     "bulba": "bin/index.js"
   },
   "dependencies": {
+    "feed": "^4.2.2",
     "fs-extra": "^10.0.0",
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.7",

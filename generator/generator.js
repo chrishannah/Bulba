@@ -10,6 +10,7 @@ const { readProjectFile } = require('../tools/files')
 const { readProjectDir } = require('../tools/files')
 const { rebuildOutputDir } = require('../tools/files')
 const { readPosts } = require('../generator/post')
+const { buildFeed } = require('../generator/feed')
 
 function generateBlog() {
     configureHandlebars()
@@ -43,6 +44,7 @@ function generateContent() {
     generatePosts(posts, config);
     generateArchive(posts, config);
     generateIndex(posts, config);
+    generateFeed(posts, config);
 }
 
 function generatePosts(posts, config) {
@@ -178,9 +180,13 @@ function generateIndex(posts, config) {
     })
 }
 
+function generateFeed(posts, config) {
+    buildFeed(posts, config);
+}
+
 function exportAssets() {
     // Export all assets to output directory
-    console.log("Exporting asset files")
+    console.log("Exporting asset files:")
     const inAssetsDir = 'assets/';
     const outAssetsDir = 'out/assets/';
     const assetFilenames = readProjectDir(inAssetsDir);
