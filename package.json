@@ -1,6 +1,6 @@
 {
   "name": "@chrishannah/bulba",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "static blog generator",
   "main": "bin/index.js",
   "scripts": {},
