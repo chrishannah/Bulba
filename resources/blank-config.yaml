@@ -6,6 +6,7 @@ site:
 author:
   name: Your name
   link: https://example.blog
+  twitter: 
 postsPerPage: 10
 paths: 
   assets:

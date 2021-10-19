@@ -5,6 +5,8 @@
     --bg-light: #FFFFFF;
     --text-dark: #CCCCCC;
     --text-light: #333333;
+    --border-dark: #222222;
+    --border-light: #eeeeee;
     --accent: rgb(11, 156, 135);
   }
   
@@ -295,4 +297,50 @@ code {
     float: left;
     height: 32px;
     margin: 1em 0em 2em 0em;
+}
+
+/* Footer */
+
+#footer {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #999;
+}
+
+#footer path {
+    fill: var(--text-light);
+}
+
+@media (prefers-color-scheme: dark) {
+    #footer path {
+        fill: var(--text-dark);
+    }
+}
+
+#footer #name {
+    font-size: 1.2em;
+    color: var(--text-light);
+    font-weight: 400;
+}
+
+@media (prefers-color-scheme: dark) {
+    #footer #name {
+        color: var(--text-dark);
+
+    }
+}
+
+#footerOuter {
+    margin: 1em 0 4em 0;
+    padding-bottom: 1em;
+    border-top: 1px solid var(--border-light);
+}
+
+@media (prefers-color-scheme: dark) {
+    #footerOuter {
+        border-top-color: var(--border-dark);
+
+    }
 }
