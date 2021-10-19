@@ -9,7 +9,7 @@ function buildFeed(posts, config) {
     posts.forEach(post => {
         var postUrl = config.site.url + post.meta.slug + '.html';
         feed.addItem({
-            title: post.title,
+            title: post.meta.title,
             id: postUrl,
             link: postUrl,
             description: post.meta.excerpt,
