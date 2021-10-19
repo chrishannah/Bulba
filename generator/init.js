@@ -12,6 +12,9 @@ function initBlog() {
     // Create initial config file
     var configFile = readProjectFile('resources/blank-config.yaml');
     fs.writeFileSync('config.yaml', configFile);
+
+    // Create initial about file
+    fs.writeFileSync('content/about.md', "# About");
 }
 
 module.exports = {

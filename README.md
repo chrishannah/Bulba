@@ -19,6 +19,7 @@ Bulba has a very minimal directory structure:
 .
 └── blog/
     ├── content/
+    │   ├── about.md
     │   └── posts/
     │       └── example.md
     └── config.yaml
@@ -47,6 +48,7 @@ The `excerpt` is optional.
 - Required assets will be exported into the assets directory, inside subdirectories noting their type.
 - An archive page will be generated with contains a list of all blog posts.
 - A [JSON Feed](https://www.jsonfeed.org) will be generated at `feed.json`.
+- The about page will be generated from the `about.md` file located inside the content directory.
 
 Example:
 
@@ -57,6 +59,7 @@ Example:
     │   └── css/
     │       └── style.css
     ├── archive.html 
+    ├── about.html 
     ├── feed.json 
     └── blog-post.html
 ```

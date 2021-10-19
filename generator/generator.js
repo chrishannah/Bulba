@@ -6,6 +6,7 @@ const beautify = require('js-beautify').html
 const yaml = require('js-yaml')
 const path = require('path');
 const moment = require("moment");
+const marked = require('marked')
 const { readProjectFile } = require('../tools/files')
 const { readProjectDir } = require('../tools/files')
 const { rebuildOutputDir } = require('../tools/files')
@@ -47,6 +48,7 @@ function generateContent() {
     generateArchive(posts, config);
     generateIndex(posts, config);
     generateFeed(posts, config);
+    generateAboutPage(config);
 }
 
 function generatePosts(posts, config) {
@@ -184,6 +186,28 @@ function generateIndex(posts, config) {
 
 function generateFeed(posts, config) {
     buildFeed(posts, config);
+}
+
+function generateAboutPage(config) {
+    // Generate about page
+    var aboutTemplateFilename = 'templates/about.hbs';
+    var aboutTemplateFile = readProjectFile(aboutTemplateFilename);
+    var aboutTemplate = handlebars.compile(aboutTemplateFile);
+    var defaultTemplateFilename = 'templates/default.hbs';
+    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
+    var defaultTemplate = handlebars.compile(defaultTemplateFile);
+
+    var file = fs.readFileSync('content/about.md', 'utf8');
+    var content = marked(file);
+
+    var aboutContent = aboutTemplate({ content: content });
+    var title = 'About | ' + config.site.name;
+    var page = defaultTemplate({ content: aboutContent, title: title, config: config });
+    var beautified = beautify(page);
+
+    var filename = 'out/about.html';
+    fs.writeFileSync(filename, beautified);
+    console.log(' - About (' + filename + ')');
 }
 
 function exportAssets() {
