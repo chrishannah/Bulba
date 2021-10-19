@@ -22,6 +22,8 @@ function configureHandlebars() {
     // Partials
     var headerFile = readProjectFile('templates/header.hbs');
     handlebars.registerPartial('header', headerFile);
+    var paginationFile = readProjectFile('templates/pagination.hbs');
+    handlebars.registerPartial('pagination', paginationFile);
 
     // Helpers
     handlebars.registerHelper('dateFormat', function (date, options) {
@@ -31,15 +33,16 @@ function configureHandlebars() {
 }
 
 function generateContent() {
-    console.log('Generating HTML files:');
     var posts = readPosts();
 
     var configFilename = "config.yaml";
     var configFile = fs.readFileSync(configFilename, 'utf8');
     var config = yaml.load(configFile);
 
+    console.log('Generating HTML files:');
     generatePosts(posts, config);
-    generateArchive(posts, config)
+    generateArchive(posts, config);
+    generateIndex(posts, config);
 }
 
 function generatePosts(posts, config) {
@@ -62,17 +65,17 @@ function generatePosts(posts, config) {
 
         var filename = 'out/' + post.meta.slug + '.html';
         fs.writeFileSync(filename, beautified);
-        console.log('- ' + post.meta.title + ' (' + filename + ')');
+        console.log(' - ' + post.meta.title + ' (' + filename + ')');
     });
 }
 
 function generateArchive(posts, config) {
     // Generate archive page
-    var defaultTemplateFilename = 'templates/default.hbs';
-    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var archiveTemplateFilename = 'templates/archive.hbs';
     var archiveTemplateFile = readProjectFile(archiveTemplateFilename);
     var archiveTemplate = handlebars.compile(archiveTemplateFile);
+    var defaultTemplateFilename = 'templates/default.hbs';
+    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var defaultTemplate = handlebars.compile(defaultTemplateFile);
 
     var content = posts.map(post => {
@@ -91,7 +94,82 @@ function generateArchive(posts, config) {
 
     var filename = 'out/archive.html';
     fs.writeFileSync(filename, beautified);
-    console.log('- Archive (' + filename + ')');
+    console.log(' - Archive (' + filename + ')');
+}
+
+function generateIndex(posts, config) {
+    var postsPerPage = config.postsPerPage;
+    var allPagedPosts = [];
+    var currentPagePosts = []
+    var i = 0;
+    posts.forEach(post => {
+        i++;
+        currentPagePosts.push(post);
+
+        if (i == postsPerPage) {
+            i = 0;
+            allPagedPosts.push(currentPagePosts);
+            currentPagePosts = [];
+        }
+    })
+    if (currentPagePosts.length > 0) {
+        allPagedPosts.push(currentPagePosts);
+    }
+
+    var currentPage = 0;
+    var allPages = [];
+    allPagedPosts.forEach(pagedPosts => {
+        currentPage++;
+
+        var previousPage;
+        var nextPage;
+
+        if (currentPage == 2) {
+            previousPage = 'index.html'
+        } else if (currentPage > 1) {
+            var prev = currentPage - 1;
+            previousPage = 'page' + prev + '.html';
+        }
+
+        if (currentPage < allPagedPosts.length) {
+            var next = currentPage + 1;
+            nextPage = 'page' + next + '.html';
+        }
+
+        var path = 'page' + currentPage + '.html';
+        if (currentPage == 1) {
+            path = 'index.html';
+        }
+
+        if (pagedPosts.length > 0) {
+            var page = {
+                pagedPosts,
+                path,
+                previousPage,
+                nextPage
+            }
+
+            allPages.push(page);
+        }
+    })
+
+    var indexTemplateFilename = 'templates/index.hbs';
+    var indexTemplateFile = readProjectFile(indexTemplateFilename);
+    var indexTemplate = handlebars.compile(indexTemplateFile);
+    var defaultTemplateFilename = 'templates/default.hbs';
+    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
+    var defaultTemplate = handlebars.compile(defaultTemplateFile);
+
+    allPages.forEach(page => {
+        var pageFilename = page.path;
+        var indexContent = indexTemplate({ page: page });
+        var indexPage = defaultTemplate({ content: indexContent, title: config.site.title, config: config });
+        var beautified = beautify(indexPage);
+
+        var filename = 'out/' + pageFilename;
+        fs.writeFileSync(filename, beautified);
+        console.log(' - Index (' + filename + ')');
+    })
 }
 
 function exportAssets() {
@@ -102,13 +180,12 @@ function exportAssets() {
     const assetFilenames = readProjectDir(inAssetsDir);
     assetFilenames.forEach(filename => {
         var inFilename = inAssetsDir + filename;
-        console.log(inFilename);
         var file = readProjectFile(inFilename);
 
         if (path.extname(filename) == ".css") {
             var outFilename = outAssetsDir + 'css/' + filename;
             fs.writeFileSync(outFilename, file);
-            console.log('- ' + inFilename + ' => ' + outFilename);
+            console.log(' - ' + inFilename + ' => ' + outFilename);
         }
     })
 }

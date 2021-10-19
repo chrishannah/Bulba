@@ -1,0 +1,16 @@
+<div="pagination">
+    {{#if page.previousPage}}
+    <div id="newer">
+        <a href="{{{page.previousPage}}}">
+            ← Newer
+        </a>
+    </div>
+    {{/if}}
+    {{#if page.nextPage}}
+    <div id="older">
+        <a href="{{{page.nextPage}}}">
+            Older →
+        </a>
+    </div>
+    {{/if}}
+    </div>
