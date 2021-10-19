@@ -141,12 +141,18 @@ function generateIndex(posts, config) {
             path = 'index.html';
         }
 
+        var title = config.site.name + ' - Page ' + currentPage;
+        if (currentPage == 1) {
+            title = config.site.name;
+        }
+
         if (pagedPosts.length > 0) {
             var page = {
                 pagedPosts,
                 path,
                 previousPage,
-                nextPage
+                nextPage,
+                title
             }
 
             allPages.push(page);
@@ -163,7 +169,7 @@ function generateIndex(posts, config) {
     allPages.forEach(page => {
         var pageFilename = page.path;
         var indexContent = indexTemplate({ page: page });
-        var indexPage = defaultTemplate({ content: indexContent, title: config.site.title, config: config });
+        var indexPage = defaultTemplate({ content: indexContent, title: page.title, config: config });
         var beautified = beautify(indexPage);
 
         var filename = 'out/' + pageFilename;
