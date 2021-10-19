@@ -1,26 +1,24 @@
 #!/usr/bin/env node
 
-const greymatter = require('gray-matter')
 const fs = require('fs')
 const handlebars = require('handlebars')
-const marked = require('marked')
 const beautify = require('js-beautify').html
 const yaml = require('js-yaml')
 const path = require('path');
-const fsExtra = require('fs-extra')
 const moment = require("moment");
 const { readProjectFile } = require('../tools/files')
 const { readProjectDir } = require('../tools/files')
+const { rebuildOutputDir } = require('../tools/files')
+const { readPosts } = require('../generator/post')
 
 function generateBlog() {
     configureHandlebars()
     rebuildOutputDir();
-    generatePosts();
+    generateContent();
     exportAssets();
 }
 
 function configureHandlebars() {
-
     // Partials
     var headerFile = readProjectFile('templates/header.hbs');
     handlebars.registerPartial('header', headerFile);
@@ -32,41 +30,24 @@ function configureHandlebars() {
     });
 }
 
-function rebuildOutputDir() {
-    // Rebuild output directory
-    const outDir = 'out/';
-    fs.mkdirSync(outDir, { recursive: true });
-    fsExtra.emptyDirSync(outDir)
-    fs.mkdirSync(outDir + 'assets/css', { recursive: true });
+function generateContent() {
+    console.log('Generating HTML files:');
+    var posts = readPosts();
+
+    var configFilename = "config.yaml";
+    var configFile = fs.readFileSync(configFilename, 'utf8');
+    var config = yaml.load(configFile);
+
+    generatePosts(posts, config);
+    generateArchive(posts, config)
 }
 
-function generatePosts() {
-    // Read posts from content directory
-    const postDir = 'content/posts/';
-    const filenames = fs.readdirSync(postDir);
-    console.log(filenames.length + ' file(s) found in posts directory');
-    console.log('Reading files:');
-    const posts = filenames.map(filename => {
-        var file = fs.readFileSync(postDir + filename, 'utf8');
-        const { data: meta, content: markdown } = greymatter(file);
-        var content = marked(markdown);
-        console.log(' - ' + meta.title + ' (' + filename + ')');
-
-        return {
-            meta,
-            content
-        }
-    });
-
+function generatePosts(posts, config) {
     // Render the posts through the template engine and generate static html files
-    console.log('Generating HTML files:');
     var defaultTemplateFilename = 'templates/default.hbs';
     var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var postTemplateFilename = 'templates/post.hbs';
     var postTemplateFile = readProjectFile(postTemplateFilename);
-    var configFilename = "config.yaml";
-    var configFile = fs.readFileSync(configFilename, 'utf8');
-    var config = yaml.load(configFile);
     posts.forEach(post => {
         var postTemplate = handlebars.compile(postTemplateFile);
         var defaultTemplate = handlebars.compile(defaultTemplateFile);
@@ -83,8 +64,12 @@ function generatePosts() {
         fs.writeFileSync(filename, beautified);
         console.log('- ' + post.meta.title + ' (' + filename + ')');
     });
+}
 
+function generateArchive(posts, config) {
     // Generate archive page
+    var defaultTemplateFilename = 'templates/default.hbs';
+    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var archiveTemplateFilename = 'templates/archive.hbs';
     var archiveTemplateFile = readProjectFile(archiveTemplateFilename);
     var archiveTemplate = handlebars.compile(archiveTemplateFile);
