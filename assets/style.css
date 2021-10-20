@@ -231,7 +231,7 @@ a:active,
 a:hover,
 a:visited {
     color: var( --accent);
-    text-decoration: underline;
+    text-decoration: none;
     text-decoration-color: var( --accent);
 }
 
