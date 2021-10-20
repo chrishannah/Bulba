@@ -7,7 +7,12 @@
         </a>
     </header>
 
+    {{#if ../config.showFullContentOnIndex}}
     {{{this.content}}}
+    {{else}}
+    {{{this.meta.excerpt}}}
+    {{/if}}
+
 
 </article>
 {{/each}}

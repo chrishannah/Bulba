@@ -50,7 +50,6 @@ function generateContent(config) {
 
 function generatePosts(posts, config) {
     // Render the posts through the template engine and generate static html files
-    console.log(config);
     var outDir = config.outputDirectory;
     var defaultTemplateFilename = 'templates/default.hbs';
     var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
@@ -174,7 +173,7 @@ function generateIndex(posts, config) {
 
     allPages.forEach(page => {
         var pageFilename = page.path;
-        var indexContent = indexTemplate({ page: page });
+        var indexContent = indexTemplate({ page: page, config: config });
         var indexPage = defaultTemplate({ content: indexContent, title: page.title, config: config });
         var beautified = beautify(indexPage);
 
