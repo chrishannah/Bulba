@@ -11,4 +11,4 @@ paths:
   assets:
     assets
 outputDirectory: out/
-showFullContentInIndex: true
+showFullContentOnIndex: true
