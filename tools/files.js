@@ -11,9 +11,9 @@ function readProjectDir(filename) {
     return fs.readdirSync(__dirname + '/../' + filename, 'utf8');
 }
 
-function rebuildOutputDir() {
+function rebuildOutputDir(config) {
     // Rebuild output directory
-    const outDir = 'out/';
+    const outDir = config.outputDirectory;
     fs.mkdirSync(outDir, { recursive: true });
     fsExtra.emptyDirSync(outDir)
     fs.mkdirSync(outDir + 'assets/css', { recursive: true });

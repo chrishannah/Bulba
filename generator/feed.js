@@ -24,7 +24,8 @@ function buildFeed(posts, config) {
         });
     });
 
-    var filename = 'out/feed.json';
+    const outDir = config.outputDirectory;
+    var filename = outDir + 'feed.json';
     fs.writeFileSync(filename, feed.json1());
 }
 

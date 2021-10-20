@@ -2,7 +2,6 @@ site:
   name: The name of your blog
   description: A description
   url: https://example.blog
-  copyright: Chris Hannah &copy;
 author:
   name: Your name
   link: https://example.blog
@@ -11,3 +10,4 @@ postsPerPage: 10
 paths: 
   assets:
     assets
+outputDirectory: out/

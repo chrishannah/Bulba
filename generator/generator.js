@@ -3,7 +3,6 @@
 const fs = require('fs')
 const handlebars = require('handlebars')
 const beautify = require('js-beautify').html
-const yaml = require('js-yaml')
 const path = require('path');
 const moment = require("moment");
 const marked = require('marked')
@@ -12,12 +11,14 @@ const { readProjectDir } = require('../tools/files')
 const { rebuildOutputDir } = require('../tools/files')
 const { readPosts } = require('../generator/post')
 const { buildFeed } = require('../generator/feed')
+const { readConfig } = require('../tools/config')
 
 function generateBlog() {
+    var config = readConfig()
     configureHandlebars()
-    rebuildOutputDir();
-    generateContent();
-    exportAssets();
+    rebuildOutputDir(config);
+    generateContent(config);
+    exportAssets(config);
 }
 
 function configureHandlebars() {
@@ -36,12 +37,8 @@ function configureHandlebars() {
     });
 }
 
-function generateContent() {
+function generateContent(config) {
     var posts = readPosts();
-
-    var configFilename = "config.yaml";
-    var configFile = fs.readFileSync(configFilename, 'utf8');
-    var config = yaml.load(configFile);
 
     console.log('Generating HTML files:');
     generatePosts(posts, config);
@@ -53,6 +50,8 @@ function generateContent() {
 
 function generatePosts(posts, config) {
     // Render the posts through the template engine and generate static html files
+    console.log(config);
+    var outDir = config.outputDirectory;
     var defaultTemplateFilename = 'templates/default.hbs';
     var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var postTemplateFilename = 'templates/post.hbs';
@@ -69,7 +68,7 @@ function generatePosts(posts, config) {
         var page = defaultTemplate({ content: postContent, title: title, config: config });
         var beautified = beautify(page);
 
-        var filename = 'out/' + post.meta.slug + '.html';
+        var filename = outDir + post.meta.slug + '.html';
         fs.writeFileSync(filename, beautified);
         console.log(' - ' + post.meta.title + ' (' + filename + ')');
     });
@@ -98,7 +97,8 @@ function generateArchive(posts, config) {
     var page = defaultTemplate({ content: archiveContent, title: title, config: config });
     var beautified = beautify(page);
 
-    var filename = 'out/archive.html';
+    const outDir = config.outputDirectory;
+    var filename = outDir + 'archive.html';
     fs.writeFileSync(filename, beautified);
     console.log(' - Archive (' + filename + ')');
 }
@@ -205,16 +205,18 @@ function generateAboutPage(config) {
     var page = defaultTemplate({ content: aboutContent, title: title, config: config });
     var beautified = beautify(page);
 
-    var filename = 'out/about.html';
+    const outDir = config.outputDirectory;
+    var filename = outDir + 'about.html';
     fs.writeFileSync(filename, beautified);
     console.log(' - About (' + filename + ')');
 }
 
-function exportAssets() {
+function exportAssets(config) {
     // Export all assets to output directory
     console.log("Exporting asset files:")
     const inAssetsDir = 'assets/';
-    const outAssetsDir = 'out/assets/';
+    var outDir = config.outputDirectory;
+    const outAssetsDir = outDir + 'assets/';
     const assetFilenames = readProjectDir(inAssetsDir);
     assetFilenames.forEach(filename => {
         var inFilename = inAssetsDir + filename;
