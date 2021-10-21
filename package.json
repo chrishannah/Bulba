@@ -1,32 +1,32 @@
 {
-  "name": "@chrishannah/bulba",
-  "version": "0.0.5",
-  "description": "static blog generator",
-  "main": "bin/index.js",
-  "scripts": {},
-  "author": "Chris Hannah",
-  "homepage": "https://github.com/chrishannah/bulba",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chrishannah/bulba.git"
-  },
-  "license": "GPL-3.0-or-later",
-  "bin": {
-    "bulba": "bin/index.js"
-  },
-  "dependencies": {
-    "feed": "^4.2.2",
-    "fs-extra": "^10.0.0",
-    "gray-matter": "^4.0.3",
-    "handlebars": "^4.7.7",
-    "js-beautify": "^1.14.0",
-    "marked": "^3.0.7",
-    "matter": "^0.2.0",
-    "moment": "^2.29.1",
-    "yargs": "^17.2.1"
-  },
-  "bugs": {
-    "url": "https://github.com/chrishannah/bulba/issues"
-  },
-  "devDependencies": {}
+    "name": "@chrishannah/bulba",
+    "version": "0.0.6",
+    "description": "static blog generator",
+    "main": "bin/index.js",
+    "scripts": {},
+    "author": "Chris Hannah",
+    "homepage": "https://github.com/chrishannah/bulba",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chrishannah/bulba.git"
+    },
+    "license": "GPL-3.0-or-later",
+    "bin": {
+        "bulba": "bin/index.js"
+    },
+    "dependencies": {
+        "feed": "^4.2.2",
+        "fs-extra": "^10.0.0",
+        "gray-matter": "^4.0.3",
+        "handlebars": "^4.7.7",
+        "js-beautify": "^1.14.0",
+        "marked": "^3.0.7",
+        "matter": "^0.2.0",
+        "moment": "^2.29.1",
+        "yargs": "^17.2.1"
+    },
+    "bugs": {
+        "url": "https://github.com/chrishannah/bulba/issues"
+    },
+    "devDependencies": {}
 }
