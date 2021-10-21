@@ -11,9 +11,19 @@ Two reasons:
 - Bulbasaur is the best Pokemon
 - There was a Bulbasaur plushie next to me when I was thinking of a name
 
-## Usage
+## Getting started
 
-Bulba has a very minimal directory structure:
+To use Bulba, you first need to install it using [npm][npm]:
+
+```
+npm install -g @chrishannah/bulba
+```
+
+Once you have Bulba installed, you need to run the `bulba init` command in the directory where you want the your blog to be.
+
+This will create an example blog, containing an example blog post, about page, and a config file.
+
+The structure is as below:
 
 ```
 .
@@ -25,9 +35,34 @@ Bulba has a very minimal directory structure:
     └── config.yaml
 ```
 
+To generate a site using Bulba, you will need to run the `bulba generate` command from the root of the blog directory.
+
+This will then generate a static site in the directory determined from the config file, default is inside a subdirectory named `out` inside your blog directory. 
+
+The outputted site will look something like this:
+
+```
+.
+└── out/
+    ├── assets/
+    │   └── css/
+    │       └── style.css
+    ├── archive.html 
+    ├── about.html 
+    ├── feed.json 
+    └── blog-post.html
+```
+A few notes on the outputted files:
+
+- Posts will be exported to the base of the `out` directory as `.html` files.
+- Required assets will be exported into the assets directory, inside subdirectories noting their type.
+- An archive page will be generated with contains a list of all blog posts.
+- A [JSON Feed](https://www.jsonfeed.org) will be generated at `feed.json`.
+- The about page will be generated from the `about.md` file located inside the content directory.
+
 ### Post format
 
-Posts should be saved as `.md` files, with the following format:
+Posts should be saved as `.md` files, inside the `content/posts` directory, with the following format:
 
 ```
 ---
@@ -42,24 +77,53 @@ Content
 
 The `excerpt` is optional.
 
-### Output directory
 
-- Posts will be exported to the base of the `out` directory as `.html` files.
-- Required assets will be exported into the assets directory, inside subdirectories noting their type.
-- An archive page will be generated with contains a list of all blog posts.
-- A [JSON Feed](https://www.jsonfeed.org) will be generated at `feed.json`.
-- The about page will be generated from the `about.md` file located inside the content directory.
+### Config
 
-Example:
+The config file is where you configure your site information, author details, and a few extra options to customise how the site is generated.
+
+Here is the demo config that is created after running `bulba init`:
 
 ```
-.
-└── out/
-    ├── assets/
-    │   └── css/
-    │       └── style.css
-    ├── archive.html 
-    ├── about.html 
-    ├── feed.json 
-    └── blog-post.html
+site:
+  name: The name of your blog
+  description: A description
+  url: https://example.blog
+author:
+  name: Your name
+  link: https://example.blog
+  twitter: 
+postsPerPage: 10
+paths: 
+  assets:
+    assets
+outputDirectory: out/
+showFullContentOnIndex: true
 ```
+
+- **site.name**: The name of your blog. Appears in the header and footer of the site, and also in the JSON feed.
+- **site.description**: The name of your blog. Appears in the footer of the site and in the JSON feed.
+- **site.url**: The base URL of where your blog is accessible. Used for link generation.
+- **author.name**: Used in the JSON Feed.
+- **author.link**: Used in the JSON Feed.
+- **author.twitter**: The full URL of your Twitter account, this will enable a Twitter icon in the footer. Optional.
+- **postsPerPage**: This number determines how many posts to put on each of the paginated index pages.
+- **path.assets**: The relative output directory of asset files used by the site, at the moment this is just the needed `.css` or `.js` files needed for site generation. This is relative to the outputDirectory below.
+- **outputDirectory**: The relative output directory for the site content.
+- **showFullContentOnIndex**: Setting this to true will show the full blog posts content on index pages, otherwise only the excerpt will be displayed.
+
+### Deploying the site
+
+At the moment, Bulba is strictly a site generator and nothing else. So there are no built-in deployment tools.
+
+My personal set up for [dev.chrishannah.me][dev] is that I have a server running on Digital Ocean, where I have Bulba installed via npm. I also have a repository for my blog content, which I have checked out on the server. 
+
+So when I want to rebuild my site, or update content, I run `git pull` to fetch any latest changes, then run `bulba generate` to generate the site, followed by a small script that moves the generated files to the correct place.
+
+**Note**: When generationg the site, Bulba will attempt to erase the contents of the configured output directory, ready to generate the fresh site. So be careful if you are customising the outputDirectory in the config file.
+
+
+
+
+[npm]: https://npmjs.com/package/@chrishannah/bulba
+[dev]: https://dev.chrishannah.me
