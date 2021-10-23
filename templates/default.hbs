@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="{{config.paths.assets}}/css/style.css">
 
     {{{customHeader}}}
+
+    {{#if config.enableCodeHighlighting}}
+    <link rel="stylesheet" href="{{config.paths.assets}}/css/code-style-light.css">
+    <link rel="stylesheet" href="{{config.paths.assets}}/css/code-style-dark.css">
+    <script src="{{config.paths.assets}}/js/highlight.js"></script>
+    <script>hljs.highlightAll();</script>
+    {{/if}}
 </head>
 
 <body>

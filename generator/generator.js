@@ -217,6 +217,9 @@ function generateDefaultTemplate(content, title, config) {
 }
 
 function exportAssets(config) {
+    // Create directories
+    fs.mkdirSync('out/assets/js/', { recursive: true });
+    fs.mkdirSync('out/assets/css/', { recursive: true });
     // Export all assets to output directory
     console.log("Exporting asset files:")
     const inAssetsDir = 'assets/';
@@ -229,6 +232,10 @@ function exportAssets(config) {
 
         if (path.extname(filename) == ".css") {
             var outFilename = outAssetsDir + 'css/' + filename;
+            fs.writeFileSync(outFilename, file);
+            console.log(' - ' + inFilename + ' => ' + outFilename);
+        } else if (path.extname(filename) == ".js") {
+            var outFilename = outAssetsDir + 'js/' + filename;
             fs.writeFileSync(outFilename, file);
             console.log(' - ' + inFilename + ' => ' + outFilename);
         }

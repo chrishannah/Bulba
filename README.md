@@ -105,6 +105,7 @@ paths:
     assets
 outputDirectory: out/
 showFullContentOnIndex: true
+enableCodeHighlighting: true
 ```
 
 - **site.name**: The name of your blog. Appears in the header and footer of the site, and also in the JSON feed.
@@ -117,6 +118,7 @@ showFullContentOnIndex: true
 - **path.assets**: The relative output directory of asset files used by the site, at the moment this is just the needed `.css` or `.js` files needed for site generation. This is relative to the outputDirectory below.
 - **outputDirectory**: The relative output directory for the site content.
 - **showFullContentOnIndex**: Setting this to true will show the full blog posts content on index pages, otherwise only the excerpt will be displayed.
+- **enableCodeHighlighting**: This enables code highlighting, which is powered by [highlight.js][hjs]. The styles used are `atom-one-dark` and `atom-one-light` depending on the system appearance. If set to false, highlight.js will not be used or linked from your pages.
 
 ### Deploying the site
 

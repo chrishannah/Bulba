@@ -12,3 +12,4 @@ paths:
     assets
 outputDirectory: out/
 showFullContentOnIndex: true
+enableCodeHighlighting: true
