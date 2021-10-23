@@ -77,6 +77,12 @@ Content
 
 The `excerpt` is optional.
 
+### Custom header content
+
+If you want to inject custom HTML in the header in all pages, then you can do this by creating a `header.html` file at the root of your blog directory.
+
+The content of this file will then be injected into every page between the `<head>` tags.
+
 
 ### Config
 

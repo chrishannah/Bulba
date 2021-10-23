@@ -31,7 +31,7 @@ function configureHandlebars() {
     handlebars.registerPartial('footer', footerFile);
 
     // Helpers
-    handlebars.registerHelper('dateFormat', function (date, options) {
+    handlebars.registerHelper('dateFormat', function(date, options) {
         const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "DD/MM/YYYY"
         return moment(date).format(formatToUse);
     });
@@ -51,20 +51,17 @@ function generateContent(config) {
 function generatePosts(posts, config) {
     // Render the posts through the template engine and generate static html files
     var outDir = config.outputDirectory;
-    var defaultTemplateFilename = 'templates/default.hbs';
-    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
     var postTemplateFilename = 'templates/post.hbs';
     var postTemplateFile = readProjectFile(postTemplateFilename);
     posts.forEach(post => {
         var postTemplate = handlebars.compile(postTemplateFile);
-        var defaultTemplate = handlebars.compile(defaultTemplateFile);
         var content = {
             post,
             config
         }
         var postContent = postTemplate(content);
         var title = post.meta.title + ' | ' + config.site.name;
-        var page = defaultTemplate({ content: postContent, title: title, config: config });
+        var page = generateDefaultTemplate(postContent, title, config);
         var beautified = beautify(page);
 
         var filename = outDir + post.meta.slug + '.html';
@@ -78,9 +75,6 @@ function generateArchive(posts, config) {
     var archiveTemplateFilename = 'templates/archive.hbs';
     var archiveTemplateFile = readProjectFile(archiveTemplateFilename);
     var archiveTemplate = handlebars.compile(archiveTemplateFile);
-    var defaultTemplateFilename = 'templates/default.hbs';
-    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
-    var defaultTemplate = handlebars.compile(defaultTemplateFile);
 
     var content = posts.map(post => {
         var path = post.meta.slug + '.html';
@@ -93,7 +87,7 @@ function generateArchive(posts, config) {
 
     var archiveContent = archiveTemplate({ posts: content });
     var title = 'Archive | ' + config.site.name;
-    var page = defaultTemplate({ content: archiveContent, title: title, config: config });
+    var page = generateDefaultTemplate(archiveContent, title, config);
     var beautified = beautify(page);
 
     const outDir = config.outputDirectory;
@@ -167,14 +161,11 @@ function generateIndex(posts, config) {
     var indexTemplateFilename = 'templates/index.hbs';
     var indexTemplateFile = readProjectFile(indexTemplateFilename);
     var indexTemplate = handlebars.compile(indexTemplateFile);
-    var defaultTemplateFilename = 'templates/default.hbs';
-    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
-    var defaultTemplate = handlebars.compile(defaultTemplateFile);
 
     allPages.forEach(page => {
         var pageFilename = page.path;
         var indexContent = indexTemplate({ page: page, config: config });
-        var indexPage = defaultTemplate({ content: indexContent, title: page.title, config: config });
+        var indexPage = generateDefaultTemplate(indexContent, page.title, config);
         var beautified = beautify(indexPage);
 
         var filename = 'out/' + pageFilename;
@@ -192,22 +183,37 @@ function generateAboutPage(config) {
     var aboutTemplateFilename = 'templates/about.hbs';
     var aboutTemplateFile = readProjectFile(aboutTemplateFilename);
     var aboutTemplate = handlebars.compile(aboutTemplateFile);
-    var defaultTemplateFilename = 'templates/default.hbs';
-    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
-    var defaultTemplate = handlebars.compile(defaultTemplateFile);
 
     var file = fs.readFileSync('content/about.md', 'utf8');
     var content = marked(file);
 
     var aboutContent = aboutTemplate({ content: content });
     var title = 'About | ' + config.site.name;
-    var page = defaultTemplate({ content: aboutContent, title: title, config: config });
+    var page = generateDefaultTemplate(aboutContent, title, config);
     var beautified = beautify(page);
 
     const outDir = config.outputDirectory;
     var filename = outDir + 'about.html';
     fs.writeFileSync(filename, beautified);
     console.log(' - About (' + filename + ')');
+}
+
+function generateDefaultTemplate(content, title, config) {
+    var customHeaderFilename = 'header.html';
+    var customHeader = '';
+
+    try {
+        if (fs.existsSync(customHeaderFilename)) {
+            customHeader = fs.readFileSync(customHeaderFilename, 'utf8');
+        }
+    } catch (err) {
+        console.error(err)
+    }
+
+    var defaultTemplateFilename = 'templates/default.hbs';
+    var defaultTemplateFile = readProjectFile(defaultTemplateFilename);
+    var defaultTemplate = handlebars.compile(defaultTemplateFile);
+    return defaultTemplate({ content: content, title: title, config: config, customHeader: customHeader });
 }
 
 function exportAssets(config) {
