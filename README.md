@@ -135,3 +135,4 @@ So when I want to rebuild my site, or update content, I run `git pull` to fetch 
 
 [npm]: https://npmjs.com/package/@chrishannah/bulba
 [dev]: https://dev.chrishannah.me
+[hjs]: https://highlightjs.org
