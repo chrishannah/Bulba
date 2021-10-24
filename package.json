@@ -3,7 +3,9 @@
     "version": "0.0.7",
     "description": "static blog generator",
     "main": "bin/index.js",
-    "scripts": {},
+    "scripts": {
+        "start": "cd test-blog; bulba generate"
+    },
     "author": "Chris Hannah",
     "homepage": "https://github.com/chrishannah/bulba",
     "repository": {

@@ -1,0 +1,15 @@
+site:
+  name: Test Blog
+  description: A test blog using Bulba
+  url: https://blog.com
+author:
+  name: John Smith
+  link: https://blog.com
+  twitter: https://twitter.com
+postsPerPage: 10
+paths: 
+  assets:
+    assets
+outputDirectory: out/
+showFullContentOnIndex: true
+enableCodeHighlighting: true

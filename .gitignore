@@ -172,7 +172,7 @@ dist
 out/
 
 # Content
-content/
+.content/
 
 # Config
-config.yaml 
+.config.yaml 
