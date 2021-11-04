@@ -232,7 +232,7 @@ function exportAssets(config) {
 
         if (path.extname(filename) == ".css") {
             var outFilename = outAssetsDir + 'css/' + filename;
-            fs.writeFileSync(outFilename, file);
+            fs.writeFileSync(outFilename, formatCSSFile(file, config));
             console.log(' - ' + inFilename + ' => ' + outFilename);
         } else if (path.extname(filename) == ".js") {
             var outFilename = outAssetsDir + 'js/' + filename;
@@ -240,6 +240,11 @@ function exportAssets(config) {
             console.log(' - ' + inFilename + ' => ' + outFilename);
         }
     })
+}
+
+function formatCSSFile(file, config) {
+    const accentColour = config.site.accentColour || 'red';
+    return file.replace("ACCENT_COLOUR", accentColour);
 }
 
 

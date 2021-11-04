@@ -7,7 +7,7 @@
     --text-light: #333333;
     --border-dark: #222222;
     --border-light: #eeeeee;
-    --accent: rgb(11, 156, 135);
+    --accent: ACCENT_COLOUR;
 }
 
 .element {

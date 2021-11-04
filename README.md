@@ -95,6 +95,7 @@ site:
   name: The name of your blog
   description: A description
   url: https://example.blog
+  accentColour: red
 author:
   name: Your name
   link: https://example.blog
@@ -111,6 +112,7 @@ enableCodeHighlighting: true
 - **site.name**: The name of your blog. Appears in the header and footer of the site, and also in the JSON feed.
 - **site.description**: The name of your blog. Appears in the footer of the site and in the JSON feed.
 - **site.url**: The base URL of where your blog is accessible. Used for link generation.
+- **site.accentColour**: A accent colour that is used in the theme for styling links, quotes, etc. Supports hex, rgb, and HTML colour names. Defaults to `red`.
 - **author.name**: Used in the JSON Feed.
 - **author.link**: Used in the JSON Feed.
 - **author.twitter**: The full URL of your Twitter account, this will enable a Twitter icon in the footer. Optional.

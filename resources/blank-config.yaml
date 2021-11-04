@@ -2,6 +2,7 @@ site:
   name: The name of your blog
   description: A description
   url: https://example.blog
+  accentColour: red
 author:
   name: Your name
   link: https://example.blog
