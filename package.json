@@ -25,10 +25,10 @@
         "marked": "^3.0.7",
         "matter": "^0.2.0",
         "moment": "^2.29.1",
+        "ncp": "^2.0.0",
         "yargs": "^17.2.1"
     },
     "bugs": {
         "url": "https://github.com/chrishannah/bulba/issues"
-    },
-    "devDependencies": {}
+    }
 }

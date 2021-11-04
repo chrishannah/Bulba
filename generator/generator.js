@@ -6,6 +6,7 @@ const beautify = require('js-beautify').html
 const path = require('path');
 const moment = require("moment");
 const marked = require('marked')
+const ncp = require('ncp').ncp;
 const { readProjectFile } = require('../tools/files')
 const { readProjectDir } = require('../tools/files')
 const { rebuildOutputDir } = require('../tools/files')
@@ -222,6 +223,12 @@ function exportAssets(config) {
     fs.mkdirSync('out/assets/css/', { recursive: true });
     // Export all assets to output directory
     console.log("Exporting asset files:")
+    exportDefaultAssets(config);
+    exportCustomAssets(config);
+    exportContentImages(config);
+}
+
+function exportDefaultAssets(config) {
     const inAssetsDir = 'assets/';
     var outDir = config.outputDirectory;
     const outAssetsDir = outDir + 'assets/';
@@ -240,6 +247,22 @@ function exportAssets(config) {
             console.log(' - ' + inFilename + ' => ' + outFilename);
         }
     })
+}
+
+function exportCustomAssets(config) {
+
+}
+
+function exportContentImages(config) {
+    // Copy images from content directory to output directory
+    const imageDir = 'content/images/';
+    const outDir = 'out/assets/images/';
+    console.log('Exporting images');
+    ncp(imageDir, outDir, function(err) {
+        if (err) {
+            return console.error(err);
+        }
+    });
 }
 
 function formatCSSFile(file, config) {

@@ -30,8 +30,10 @@ The structure is as below:
 └── blog/
     ├── content/
     │   ├── about.md
-    │   └── posts/
-    │       └── example.md
+    │   ├── posts/
+    │   │   └── example.md
+    │   └── images/
+    │       └── image.png
     └── config.yaml
 ```
 
@@ -45,11 +47,13 @@ The outputted site will look something like this:
 .
 └── out/
     ├── assets/
-    │   └── css/
-    │       └── style.css
-    ├── archive.html 
-    ├── about.html 
-    ├── feed.json 
+    │   ├── css/
+    │   │   └── style.css
+    │   └── images/
+    │       └── image.png
+    ├── archive.html
+    ├── about.html
+    ├── feed.json
     └── blog-post.html
 ```
 A few notes on the outputted files:
@@ -59,6 +63,7 @@ A few notes on the outputted files:
 - An archive page will be generated with contains a list of all blog posts.
 - A [JSON Feed](https://www.jsonfeed.org) will be generated at `feed.json`.
 - The about page will be generated from the `about.md` file located inside the content directory.
+- All content inside the `content/images` directory will be exported to the `assets/images/` directory relative to the output directory.
 
 ### Post format
 
@@ -76,6 +81,25 @@ Content
 ```
 
 The `excerpt` is optional.
+
+### Images
+
+To include images in blog posts, they need to be placed in the `content/images` directory. Everything in this directory will be copied to the `assets/images` directory, with the same folder structure.
+
+For example, for an image named `screenshot.png`, at the following location:
+
+```
+blog/content/images/2021/01/01/screenshot.png
+```
+
+will be copied to the following location, relative to the output directory:
+
+```
+/assets/images/2021/01/01/screenshot.png
+```
+
+The latter is the path required to reference an image in a blog post.
+
 
 ### Custom header content
 
