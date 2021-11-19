@@ -8,6 +8,7 @@ author:
   link: https://example.blog
   twitter: 
 postsPerPage: 10
+numberOfPostsInFeed: 10
 paths: 
   assets:
     assets

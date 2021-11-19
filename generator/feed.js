@@ -6,7 +6,8 @@ const fs = require('fs')
 function buildFeed(posts, config) {
     var feed = createSiteFeed(config);
 
-    posts.forEach(post => {
+    var limit = config.numberOfPostsInFeed || 10;
+    posts.slice(0, limit).forEach(post => {
         var postUrl = config.site.url + post.meta.slug + '.html';
         feed.addItem({
             title: post.meta.title,
@@ -14,12 +15,10 @@ function buildFeed(posts, config) {
             link: postUrl,
             description: post.meta.excerpt,
             content: post.content,
-            author: [
-                {
-                    name: config.author.name,
-                    link: config.author.link
-                }
-            ],
+            author: [{
+                name: config.author.name,
+                link: config.author.link
+            }],
             date: post.meta.date
         });
     });

@@ -125,6 +125,7 @@ author:
   link: https://example.blog
   twitter: 
 postsPerPage: 10
+numberOfPostsInFeed: 10
 paths: 
   assets:
     assets
@@ -141,6 +142,7 @@ enableCodeHighlighting: true
 - **author.link**: Used in the JSON Feed.
 - **author.twitter**: The full URL of your Twitter account, this will enable a Twitter icon in the footer. Optional.
 - **postsPerPage**: This number determines how many posts to put on each of the paginated index pages.
+- **numberOfPostsInFeed**: The number of posts that will be included in the syndicated feeds.
 - **path.assets**: The relative output directory of asset files used by the site, at the moment this is just the needed `.css` or `.js` files needed for site generation. This is relative to the outputDirectory below.
 - **outputDirectory**: The relative output directory for the site content.
 - **showFullContentOnIndex**: Setting this to true will show the full blog posts content on index pages, otherwise only the excerpt will be displayed.
