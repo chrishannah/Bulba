@@ -132,6 +132,7 @@ paths:
 outputDirectory: out/
 showFullContentOnIndex: true
 enableCodeHighlighting: true
+enableSearchOnArchivePage: true
 ```
 
 - **site.name**: The name of your blog. Appears in the header and footer of the site, and also in the JSON feed.
@@ -147,6 +148,7 @@ enableCodeHighlighting: true
 - **outputDirectory**: The relative output directory for the site content.
 - **showFullContentOnIndex**: Setting this to true will show the full blog posts content on index pages, otherwise only the excerpt will be displayed.
 - **enableCodeHighlighting**: This enables code highlighting, which is powered by [highlight.js][hjs]. The styles used are `atom-one-dark` and `atom-one-light` depending on the system appearance. If set to false, highlight.js will not be used or linked from your pages.
+- **enableSearchOnArchivePage**: Adds a search bar to the top of the archive page. It uses very minimal JavaScript to filter the list based on the query text.
 
 ### Deploying the site
 

@@ -2,11 +2,13 @@
     Archive
 </div>
 
+{{#if config.enableSearchOnArchivePage}}
 <P id="search">
     <form id="search-form">
         <input type="search" id="query" placeholder="Search">
     </form>
 </p>
+{{/if}}
 
 {{#each posts}}
 <article>
@@ -23,4 +25,6 @@
 </article>
 {{/each}}
 
+{{#if config.enableSearchOnArchivePage}}
 <script src="{{config.paths.assets}}/js/search.js"></script>
+{{/if}}
