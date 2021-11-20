@@ -24,8 +24,8 @@ function buildFeed(posts, config) {
     });
 
     const outDir = config.outputDirectory;
-    var filename = outDir + 'feed.json';
-    fs.writeFileSync(filename, feed.json1());
+    fs.writeFileSync(outDir + "feed.json", feed.json1());
+    fs.writeFileSync(outDir + "feed.xml", feed.rss2());
 }
 
 function createSiteFeed(config) {
@@ -37,10 +37,11 @@ function createSiteFeed(config) {
         image: "", // TODO: Replace with featured image
         favicon: "", // TODO: Replace with favicon
         copyright: "", // TODO: Replace with copyright
-        updated: Date.now(),
-        generator: "Bulba Static Blog Generator", // optional, default = 'Feed for Node.js'
+        updated: new Date(),
+        generator: "Bulba Static Blog Generator",
         feedLinks: {
-            json: config.site.url + 'feed.json'
+            json: config.site.url + 'feed.json',
+            rss2: config.site.url + 'feed.xml'
         },
         author: {
             name: config.author.name,

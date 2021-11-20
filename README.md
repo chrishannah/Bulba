@@ -54,6 +54,7 @@ The outputted site will look something like this:
     ├── archive.html
     ├── about.html
     ├── feed.json
+    ├── feed.xml
     └── blog-post.html
 ```
 A few notes on the outputted files:
@@ -62,6 +63,7 @@ A few notes on the outputted files:
 - Required assets will be exported into the assets directory, inside subdirectories noting their type.
 - An archive page will be generated with contains a list of all blog posts.
 - A [JSON Feed](https://www.jsonfeed.org) will be generated at `feed.json`.
+- A [RSS2 Feed](https://www.rssboard.org/rss-specification) will be generated at `feed.xml`.
 - The about page will be generated from the `about.md` file located inside the content directory.
 - All content inside the `content/images` directory will be exported to the `assets/images/` directory relative to the output directory.
 
