@@ -86,7 +86,7 @@ function generateArchive(posts, config) {
         }
     });
 
-    var archiveContent = archiveTemplate({ posts: content });
+    var archiveContent = archiveTemplate({ posts: content, config });
     var title = 'Archive | ' + config.site.name;
     var page = generateDefaultTemplate(archiveContent, title, config);
     var beautified = beautify(page);

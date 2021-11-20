@@ -2,12 +2,18 @@
     Archive
 </div>
 
+<P id="search">
+    <form id="search-form">
+        <input type="search" id="query" placeholder="Search">
+    </form>
+</p>
+
 {{#each posts}}
 <article>
     <header>
         <span id="meta">{{dateFormat this.post.meta.date format='Do MMMM YYYY'}}</span>
         <a href="{{this.path}}">
-            <h1>{{this.post.meta.title}}</h1>
+            <h1 class="article-title">{{this.post.meta.title}}</h1>
         </a>
     </header>
 
@@ -16,3 +22,5 @@
     {{/if}}
 </article>
 {{/each}}
+
+<script src="{{config.paths.assets}}/js/search.js"></script>

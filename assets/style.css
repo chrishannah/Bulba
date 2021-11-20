@@ -165,6 +165,10 @@ html {
 
 /* Article */
 
+article.hidden {
+    display: none;
+}
+
 article {
     margin-top: 1em;
     margin-bottom: 3em;
@@ -402,6 +406,30 @@ code {
         background-color: #1b1b1b;
     }
     code {
+        background-color: #1b1b1b;
+        color: #eee;
+    }
+}
+
+
+/* Search */
+
+input[type=search] {
+    -webkit-appearance: none;
+    border-radius: 8px;
+    border: none;
+    padding: 0.4em;
+    height: auto;
+    width: 100%;
+    background-color: #fafafa;
+    color: #111111;
+    font-size: 1.2em;
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
+@media (prefers-color-scheme: dark) {
+    input[type=search] {
         background-color: #1b1b1b;
         color: #eee;
     }
