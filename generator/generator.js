@@ -186,7 +186,7 @@ function generateAboutPage(config) {
     var aboutTemplate = handlebars.compile(aboutTemplateFile)
 
     var file = fs.readFileSync('content/about.md', 'utf8')
-    var content = marked(file)
+    var content = marked.parse(file)
 
     var aboutContent = aboutTemplate({ content: content })
     var title = 'About | ' + config.site.name

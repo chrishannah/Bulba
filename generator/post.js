@@ -13,7 +13,7 @@ function readPosts() {
     const posts = filenames.map(filename => {
         var file = fs.readFileSync(postDir + filename, 'utf8')
         const { data: meta, content: markdown } = greymatter(file)
-        var content = marked(markdown)
+        var content = marked.parse(markdown)
         console.log(' - ' + meta.title + ' (' + filename + ')')
 
         return {
